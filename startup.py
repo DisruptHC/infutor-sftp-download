@@ -54,37 +54,6 @@ class GCS:
         blobs = self.get_all_blobs()
         return map(get_path, blobs)
 
-class Publisher:
-    def __init__(self, project, topic):
-        self.project = project
-        self.topic = topic
-        self.publisher = pubsub_v1.PublisherClient()
-        self.futures = dict()
-        self.topic_path = self.publisher.topic_path(self.project, self.topic)
-    def cb(self, future, data):
-        def callback(future):
-            self.futures.pop(data)
-        return callback
-    def push(self, data):
-        future = self.publisher.publish(self.topic_path, data.encode("utf-8"))
-        self.futures[data] = future
-        future.add_done_callback(self.cb(future, data))
-
-class Subscriber:
-    def __init__(self, project, topic, subscription):
-        self.project = project
-        self.subscription = subscription
-        self.subscriber = pubsub_v1.SubscriberClient()
-        self.futures = dict()
-        self.subscription_path = self.subscriber.subscription_path(self.project, self.subscription)
-    def cb(self, message):
-        message.ack()
-        # time.sleep(45)
-    def get(self):
-        future = self.subscriber.subscribe(self.subscription_path, self.cb)
-        with self.subscriber:
-            future.result()        
-
 def process_zip_file():
     pass
 
@@ -102,20 +71,10 @@ def main():
     gcs = GCS(project="dtl-unt-genaiz-app-test", bucket="dtl-si-infutor-bucket-python")
     gcs_raw_files = gcs.list_all_files(prefix="infutor/raw/12-2020/")
 
-    # publisher = Publisher(project="dtl-unt-genaiz-app-test", topic="infutor-download")
-    # for item in diff(sftp.filenames, gcs_raw_files):
-    #     publisher.push(item)
-
     job_queue = diff(sftp.filenames, gcs_raw_files)
     
     for item in job_queue:
         process_item(item, sftp, gcs)
-
-    # while publisher.futures:
-    #     time.sleep(5)
-
-    # subscriber = Subscriber(project="dtl-unt-genaiz-app-test", topic="infutor-download", subscription="infutor-download")
-    # subscriber.get()
 
 if __name__ == "__main__":
     main()
