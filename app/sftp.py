@@ -141,7 +141,7 @@ class SFTP:
         transport.set_keepalive(30)
         transport.connect(None, self.username, self.password)
         sftp = SFTPClient.from_transport(transport)
-        return self._list_files_r(sftp, ".")
+        return self._list_files_r(sftp, "")
     def get(self, src, dst, callback=None):
         """
         Helper function to download remote file via sftp.
