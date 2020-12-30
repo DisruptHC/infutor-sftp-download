@@ -25,6 +25,7 @@ class Options:
         self.sftp_port = sftp_port
         self.sftp_username = sftp_username
         self.sftp_password_secret = sftp_password_secret
+        self.sftp_root = sftp_root
         self.bucket_name = bucket_name
         self.pgp_key_secret = pgp_key_secret
         self.pgp_passphrase_secret = pgp_passphrase_secret
@@ -36,6 +37,7 @@ class Options:
 @click.option('--port', 'sftp_port', required=True, type=int, default=22)
 @click.option('--username', 'sftp_username', required=True, type=str)
 @click.option('--password-secret', 'sftp_password_secret', required=True, type=str)
+@click.option('--sftp_root', 'sftp_root', default="", required=False, type=str)
 @click.option('--bucket', 'bucket_name', required=True, type=str)
 @click.option('--pgp-key-secret', 'pgp_key_secret', required=True, type=str)
 @click.option('--pgp-passphrase-secret', 'pgp_passphrase_secret', required=True, type=str)
@@ -51,6 +53,7 @@ def main(
         sftp_port,
         sftp_username, 
         sftp_password_secret,
+        sftp_root,
         bucket_name, 
         pgp_key_secret, 
         pgp_passphrase_secret, 

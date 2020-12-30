@@ -9,11 +9,12 @@ import paramiko
 from stat import S_ISDIR
 
 class SFTP:
-    def __init__(self, hostname, port, username, password):
+    def __init__(self, hostname, port, username, password, root=""):
         self.hostname = hostname
         self.port = port
         self.username = username
         self.password = password
+        self.root = root
     def _list_files_r(self, sftp, root):
         files = []
         for path in sftp.listdir_attr(root):
@@ -30,7 +31,7 @@ class SFTP:
         transport.set_keepalive(30)
         transport.connect(None, self.username, self.password)
         sftp = paramiko.SFTPClient.from_transport(transport)
-        return self._list_files_r(sftp, ".")
+        return self._list_files_r(sftp, self.root)
     def get(self, src, dst):
         logging.info(f"Downloading './{src}' to '{dst}'...")
         sftp = subprocess.run(
