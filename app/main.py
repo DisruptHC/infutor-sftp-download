@@ -44,7 +44,7 @@ class Options:
 @click.option('--dry-run', 'dry_run', default=False, required=False, type=bool, is_flag=True)
 @click.pass_context
 def main(
-    ctx, project_id, sftp_hostname, sftp_port, sftp_username, sftp_password_secret, 
+    ctx, project_id, sftp_hostname, sftp_port, sftp_username, sftp_password_secret, sftp_root,
     bucket_name, pgp_key_secret, pgp_passphrase_secret, dry_run
 ):
     opts = Options(
