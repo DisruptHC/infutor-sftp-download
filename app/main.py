@@ -17,7 +17,7 @@ from app.infutor import run
 
 class Options:
     def __init__(
-        self, project_id, sftp_hostname, sftp_port, sftp_username, sftp_password_secret, 
+        self, project_id, sftp_hostname, sftp_port, sftp_username, sftp_password_secret, sftp_root,
         bucket_name, pgp_key_secret, pgp_passphrase_secret, dry_run
     ):
         self.project_id = project_id
