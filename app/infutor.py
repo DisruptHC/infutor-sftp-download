@@ -49,10 +49,13 @@ def run(opts):
     logging.info(f"remote_job_queue: {remote_job_queue}")
 
     # process remote files
+    count = 0
     if not opts.dry_run:
         for item in remote_job_queue:
             try:
                 processor.process_remote_item(item)
+                count += 1
+                logging.info(f"Processed {count}/{len(remote_job_queue)} remote files.")
             except Exception as err:
                 logging.info(traceback.format_exc())
                 pass
