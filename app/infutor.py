@@ -29,7 +29,7 @@ def run(opts):
 
     # list remote SFTP files
     sftp_password = get_secret(opts.project_id, opts.sftp_password_secret, "latest")
-    sftp = SFTP(hostname=opts.sftp_hostname, port=opts.sftp_port, username=opts.sftp_username, password=sftp_password, root=sftp_root)
+    sftp = SFTP(hostname=opts.sftp_hostname, port=opts.sftp_port, username=opts.sftp_username, password=sftp_password, root=opts.sftp_root)
     remote_files = sftp.list_files()
     logging.info(f"sftp.list_files(): {remote_files}")
 
