@@ -2,19 +2,6 @@ import click
 
 from app.infutor import run
 
-# DRY_RUN = True
-
-# project_id = "dtl-unt-genaiz-app-test"
-
-# sftp_hostname = "104.196.115.148"
-# sftp_username = "chakshu"
-# sftp_password = "chakshu"
-
-# bucket_name = "dtl-si-infutor-bucket-python"
-
-# pgp_key_secret = "infutor-pgp-key"
-# pgp_passphrase_secret = "infutor-pgp-passphrase"
-
 class Options:
     def __init__(
         self, project_id, sftp_hostname, sftp_port, sftp_username, sftp_password_secret, sftp_root,
