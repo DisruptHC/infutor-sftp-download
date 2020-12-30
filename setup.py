@@ -13,6 +13,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="",
     packages=setuptools.find_packages(),
+    setup_requires=[
+        'wheel'
+    ],
     install_requires=[
         'Click',
         'google-cloud-storage',
